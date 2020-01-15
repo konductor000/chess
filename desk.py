@@ -24,9 +24,15 @@ chess_frame = tk.Frame(desk)
 chess_frame.pack()
 def do_smth(event):
 	pass
+
 for i in range(8):
 	for j in range(8):
-		label = tk.Label(chess_frame, text = i * 8 + j + 1, bg = "white", width = SCALE * 2, height = SCALE)
+		if (j + i) % 2 != 0:
+			col = "black"
+		else:
+			col = "white"
+		label = tk.Label(chess_frame, bg = col, width = SCALE * 2, height = SCALE)
+
 
 		label.grid(row = i, column = j)
 		label.bind("<Button-1>", do_smth)
