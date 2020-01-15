@@ -8,10 +8,14 @@ label_2 = tk.Label(desk, text = "2")
 label_1.grid(row = 0)
 label_2.grid(row = 1)
 
+def do_smth(event):
+	pass
+
 for i in range(8):
 	for j in range(8):
-		label = tk.Label(desk, text = i * 8 +j +1)
+		label = tk.Label(desk, text = i * 8 +j +1, bg = "white")
 		label.grid(row = i, column = j)
+		label.bind("<Button-1>", do_smth)
 
 '''
 for i in range(8):
