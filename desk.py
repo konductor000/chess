@@ -1,21 +1,38 @@
 import Tkinter as tk
 import tkFont as tkf
 
+SCALE = 2
+
 desk = tk.Tk()
 l_label =[]
-label_1 = tk.Label(desk, text = "1")
-label_2 = tk.Label(desk, text = "2")
-label_1.grid(row = 0)
-label_2.grid(row = 1)
+frame_num = tk.Frame(desk)
+frame_num.pack(side = tk.LEFT, anchor=tk.NW)
+for i in range(1,9):
+	label = tk.Label(frame_num, text = i, bg = "green", width = SCALE * 2, height = SCALE)
+	label.pack(side = tk.BOTTOM)
 
+
+frame_let = tk.Frame(desk)
+frame_let.pack(side = tk.BOTTOM, anchor = tk.SE)
+for i in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+	label = tk.Label(frame_let, text = i, bg = "red", width = SCALE * 2, height = SCALE)
+	label.pack(side = tk.LEFT)
+
+
+
+chess_frame = tk.Frame(desk)
+chess_frame.pack()
 def do_smth(event):
 	pass
-
 for i in range(8):
 	for j in range(8):
-		label = tk.Label(desk, text = i * 8 +j +1, bg = "white")
+		label = tk.Label(chess_frame, text = i * 8 + j + 1, bg = "white", width = SCALE * 2, height = SCALE)
+
 		label.grid(row = i, column = j)
 		label.bind("<Button-1>", do_smth)
+
+		#label["text"] = "a"
+
 
 '''
 for i in range(8):
