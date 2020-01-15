@@ -4,10 +4,18 @@ import tkFont as tkf
 class Chess(object):
 	def __init__(self):
 		self.SCALE = 2
+		
+		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}
+		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
 
 	def OnClick(self, event):
 		pass
+
+	def GetIndexByPos(self, pos):
+		i = 8 - int(pos[1])
+		j = self.letter_to_index[pos[0].upper()]
+		return i, j
 
 	def MakeDesk(self):
 		desk = tk.Tk()
@@ -43,6 +51,19 @@ class Chess(object):
 
 		return desk,labels
 
+	def PlaceFigureOnBoard(self, pos, figure, color):
+		#pos - string ("A2"), figure - string "P", color - string ("W" or "B")
+		i, j = self.GetIndexByPos(pos)
+		label = self.labels[i][j] # TODO
+
+		label["text"] = figure
+		label["fg"] = "green" if color == "W" else "red"
+
+
+
+
+
+
 	def Run(self):
 		self.desk.mainloop()
 		print(1)
@@ -50,5 +71,8 @@ class Chess(object):
 
 if __name__ == "__main__":
 	board = Chess()
+
+	board.PlaceFigureOnBoard("c8", "P", "W")
+
 	board.Run()
 
