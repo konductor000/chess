@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import tkinter as tk
 class Chess(object):
 	def __init__(self):
@@ -54,6 +55,7 @@ class Chess(object):
 		label["fg"] = "green" if color == "W" else "red"
 
 
+
 	
 
 
@@ -105,3 +107,14 @@ if __name__ == "__main__":
 
 
 	board.Run()
+	print("choose the figure(П, Л, К, С, Д, Б)")
+	fugure = input()
+	print("coose the figure's cell(number)")
+	num_cell = int(input())
+	print("cell(letter)")
+	let_cell = input()
+	print("color?")
+	color = input()
+	if figure == "П" and color == "W":
+		print("you can go here: ", )
+
