@@ -103,10 +103,8 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("f1", "С", "B")
 
 
-
-
-
 	board.Run()
+	
 	print("choose the figure(П, Л, К, С, Д, Б)")
 	fugure = input()
 	print("coose the figure's cell(number)")
