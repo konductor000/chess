@@ -9,7 +9,10 @@ class Chess(object):
 		self.desk, self.labels = self.MakeDesk()
 
 	def OnClick(self, row, column):
-		print(row, column)
+		pos = column + str(row)
+		i, j = self.GetIndexByPos(pos)
+		label = self.labels[i][j]
+		print(row, column, label["text"])
 
 	def GetIndexByPos(self, pos):
 		i = 8 - int(pos[1])
@@ -25,7 +28,8 @@ class Chess(object):
 			label.pack(side = tk.BOTTOM)
 		frame_let = tk.Frame(desk)
 		frame_let.pack(side = tk.BOTTOM, anchor = tk.SE)
-		for i in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+		letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
+		for i in letters:
 			label = tk.Label(frame_let, text = i, bg = "red", width = self.SCALE * 2, height = self.SCALE)
 			label.pack(side = tk.LEFT)
 		chess_frame = tk.Frame(desk)
@@ -40,7 +44,7 @@ class Chess(object):
 					col = "white"
 				label = tk.Label(chess_frame, bg = col, width = self.SCALE * 2, height = self.SCALE)
 				label.grid(row = i, column = j)
-				label.bind("<Button-1>", lambda event, row=i, column=j: self.OnClick(row, column))
+				label.bind("<Button-1>", lambda event, row=8 - i, column=letters[j]: self.OnClick(row, column))
 				labels[i].append(label)
 				#label["text"] = "a"
 
@@ -68,51 +72,41 @@ class Chess(object):
 if __name__ == "__main__":
 	board = Chess()
 
-	board.PlaceFigureOnBoard("a7", "П", "W")
-	board.PlaceFigureOnBoard("b7", "П", "W")
-	board.PlaceFigureOnBoard("c7", "П", "W")
-	board.PlaceFigureOnBoard("d7", "П", "W")
-	board.PlaceFigureOnBoard("e7", "П", "W")
-	board.PlaceFigureOnBoard("f7", "П", "W")
-	board.PlaceFigureOnBoard("g7", "П", "W")
-	board.PlaceFigureOnBoard("h7", "П", "W")
-	board.PlaceFigureOnBoard("a8", "Л", "W")
-	board.PlaceFigureOnBoard("h8", "Л", "W")
-	board.PlaceFigureOnBoard("b8", "К", "W")
-	board.PlaceFigureOnBoard("c8", "С", "W")
-	board.PlaceFigureOnBoard("d8", "Д", "W")
-	board.PlaceFigureOnBoard("e8", "Б", "W")
-	board.PlaceFigureOnBoard("g8", "К", "W")
-	board.PlaceFigureOnBoard("f8", "С", "W")
+	board.PlaceFigureOnBoard("a7", "P", "W")
+	board.PlaceFigureOnBoard("b7", "P", "W")
+	board.PlaceFigureOnBoard("c7", "P", "W")
+	board.PlaceFigureOnBoard("d7", "P", "W")
+	board.PlaceFigureOnBoard("e7", "P", "W")
+	board.PlaceFigureOnBoard("f7", "P", "W")
+	board.PlaceFigureOnBoard("g7", "P", "W")
+	board.PlaceFigureOnBoard("h7", "P", "W")
+	board.PlaceFigureOnBoard("a8", "R", "W")
+	board.PlaceFigureOnBoard("h8", "R", "W")
+	board.PlaceFigureOnBoard("b8", "H", "W")
+	board.PlaceFigureOnBoard("c8", "E", "W")
+	board.PlaceFigureOnBoard("d8", "Q", "W")
+	board.PlaceFigureOnBoard("e8", "K", "W")
+	board.PlaceFigureOnBoard("g8", "H", "W")
+	board.PlaceFigureOnBoard("f8", "E", "W")
 
-	board.PlaceFigureOnBoard("a2", "П", "B")
-	board.PlaceFigureOnBoard("b2", "П", "B")
-	board.PlaceFigureOnBoard("c2", "П", "B")
-	board.PlaceFigureOnBoard("d2", "П", "B")
-	board.PlaceFigureOnBoard("e2", "П", "B")
-	board.PlaceFigureOnBoard("f2", "П", "B")
-	board.PlaceFigureOnBoard("g2", "П", "B")
-	board.PlaceFigureOnBoard("h2", "П", "B")
-	board.PlaceFigureOnBoard("a1", "Л", "B")
-	board.PlaceFigureOnBoard("h1", "Л", "B")
-	board.PlaceFigureOnBoard("b1", "К", "B")
-	board.PlaceFigureOnBoard("c1", "С", "B")
-	board.PlaceFigureOnBoard("d1", "Д", "B")
-	board.PlaceFigureOnBoard("e1", "Б", "B")
-	board.PlaceFigureOnBoard("g1", "К", "B")
-	board.PlaceFigureOnBoard("f1", "С", "B")
+	board.PlaceFigureOnBoard("a2", "P", "B")
+	board.PlaceFigureOnBoard("b2", "P", "B")
+	board.PlaceFigureOnBoard("c2", "P", "B")
+	board.PlaceFigureOnBoard("d2", "P", "B")
+	board.PlaceFigureOnBoard("e2", "P", "B")
+	board.PlaceFigureOnBoard("f2", "P", "B")
+	board.PlaceFigureOnBoard("g2", "P", "B")
+	board.PlaceFigureOnBoard("h2", "P", "B")
+	board.PlaceFigureOnBoard("a1", "R", "B")
+	board.PlaceFigureOnBoard("h1", "R", "B")
+	board.PlaceFigureOnBoard("b1", "H", "B")
+	board.PlaceFigureOnBoard("c1", "E", "B")
+	board.PlaceFigureOnBoard("d1", "Q", "B")
+	board.PlaceFigureOnBoard("e1", "K", "B")
+	board.PlaceFigureOnBoard("g1", "H", "B")
+	board.PlaceFigureOnBoard("f1", "E", "B")
 
 
 	board.Run()
 	
-	print("choose the figure(П, Л, К, С, Д, Б)")
-	fugure = input()
-	print("coose the figure's cell(number)")
-	num_cell = int(input())
-	print("cell(letter)")
-	let_cell = input()
-	print("color?")
-	color = input()
-	if figure == "П" and color == "W":
-		print("you can go here: ", )
-
+	
