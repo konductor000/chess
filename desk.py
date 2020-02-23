@@ -8,8 +8,8 @@ class Chess(object):
 		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
 
-	def OnClick(self, event):
-		pass
+	def OnClick(self, row, column):
+		print(row, column)
 
 	def GetIndexByPos(self, pos):
 		i = 8 - int(pos[1])
@@ -40,7 +40,7 @@ class Chess(object):
 					col = "white"
 				label = tk.Label(chess_frame, bg = col, width = self.SCALE * 2, height = self.SCALE)
 				label.grid(row = i, column = j)
-				label.bind("<Button-1>", self.OnClick)
+				label.bind("<Button-1>", lambda event, row=i, column=j: self.OnClick(row, column))
 				labels[i].append(label)
 				#label["text"] = "a"
 
