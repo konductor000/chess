@@ -2,6 +2,7 @@
 import tkinter as tk
 class Chess(object):
 	def __init__(self):
+		self.IsClicked = False 
 		self.SCALE = 2
 
 		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}
