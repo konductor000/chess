@@ -10,10 +10,24 @@ class Chess(object):
 		self.desk, self.labels = self.MakeDesk()
 
 	def OnClick(self, row, column):
+		
 		pos = column + str(row)
 		i, j = self.GetIndexByPos(pos)
 		label = self.labels[i][j]
-		print(row, column, label["text"])
+		#inf = (row, column, label["text"], label["fg"])
+		if label["text"] == "P":
+			if label["fg"] == "red":
+				if row == 2:
+					print(column, row + 1, " ", column, row + 2)
+				if row != 2:
+					print(column, row + 1)
+		elif label["text"] == "P":
+			if label["fg"] == "green":
+				if row == 7:
+					print(column, row - 1, " ", column, row - 2)
+				if row != 7:
+					print(column, row - 1)
+		print(row, column, label["text"], label["fg"])                                          #"green" if color == "W" else "red"
 
 	def GetIndexByPos(self, pos):
 		i = 8 - int(pos[1])
@@ -45,7 +59,7 @@ class Chess(object):
 					col = "white"
 				label = tk.Label(chess_frame, bg = col, width = self.SCALE * 2, height = self.SCALE)
 				label.grid(row = i, column = j)
-				label.bind("<Button-1>", lambda event, row=8 - i, column=letters[j]: self.OnClick(row, column))
+				label.bind("<Button-1>", lambda event, row = 8 - i, column = letters[j]: self.OnClick(row, column))
 				labels[i].append(label)
 				#label["text"] = "a"
 
@@ -93,6 +107,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("a2", "P", "B")
 	board.PlaceFigureOnBoard("b2", "P", "B")
 	board.PlaceFigureOnBoard("c2", "P", "B")
+	board.PlaceFigureOnBoard("c3", "P", "B")#
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
