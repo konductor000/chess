@@ -18,16 +18,25 @@ class Chess(object):
 		if label["text"] == "P":
 			if label["fg"] == "red":
 				if row == 2:
-					print(column, row + 1, " ", column, row + 2)
+					step = (column, row + 1, column, row + 2)
+					print(step)
+					if str(step[2]) + str(step[3]) == column:
+						step.remove(2, 3)
 				if row != 2:
-					print(column, row + 1)
-		elif label["text"] == "P":
+					step = (column, row + 1)
+					print(step)
+					if str(step[0]) + str(step[1]) == column:
+						step.remove(0, 1)
 			if label["fg"] == "green":
 				if row == 7:
-					print(column, row - 1, " ", column, row - 2)
+					step = (column, row - 1, column, row - 2)
+					print(step)
 				if row != 7:
-					print(column, row - 1)
-		print(row, column, label["text"], label["fg"])                                          #"green" if color == "W" else "red"
+					step = (column, row - 1)
+					print(step)
+
+
+
 
 	def GetIndexByPos(self, pos):
 		i = 8 - int(pos[1])
