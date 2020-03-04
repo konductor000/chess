@@ -10,7 +10,11 @@ class Chess(object):
 		self.desk, self.labels = self.MakeDesk()
 
 	def GetFigure(self, row, column):
-		pass
+		pos = column + str(row)
+		i, j = self.GetIndexByPos(pos)
+		label = self.labels[i][j]
+		if label["text"] == "P":
+			return label["text"]
 
 	def OnClick(self, row, column):	
 		pos = column + str(row)
