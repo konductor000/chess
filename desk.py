@@ -9,8 +9,9 @@ class Chess(object):
 		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
 
-	def GetLabel(self, row, column):
-		pos = column + str(row)
+	def GetLabel(self, colrow):
+
+		pos = colrow[0] + str(colrow[1])
 		i, j = self.GetIndexByPos(pos)
 		label = self.labels[i][j]
 		return label
@@ -22,25 +23,26 @@ class Chess(object):
 		#inf = (row, column, label["text"], label["fg"])
 		if label["text"] == "P":
 			if label["fg"] == "red":
-				if row == 2:
-					step = (column, row + 1, column, row + 2)
-					print(step)
-					if str(step[2]) + str(step[3]) == column:
-						step.remove(2, 3)
-				if row != 2:
-					step = (column, row + 1)
-					print(step)
-					if str(step[0]) + str(step[1]) == column:
-						step.remove(0, 1)
+				step = [(column, row + 1), (column, row + 2)]
+				if self.GetLabel(step[0])["text"] != "":
+					step = []
+				elif row == 2:
+					if self.GetLabel(step[1])["text"] != "":
+						step.pop(1)
+				else:
+					step.pop(1)	
+				
+				
+						
+		
 			if label["fg"] == "green":
 				if row == 7:
 					step = (column, row - 1, column, row - 2)
 					print(step)
 				if row != 7:
 					step = (column, row - 1)
-					print(step)
-		if 1 == 2:
-			print(1 + 1)
+		print(step)
+
 
 
 
