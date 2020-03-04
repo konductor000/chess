@@ -5,15 +5,15 @@ class Chess(object):
 		self.IsClicked = False 
 		self.SCALE = 2 
 
-		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7} 
+		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}        
 		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
 
-	def GetFigure(self, row, column):
+	def GetLabel(self, row, column):
 		pos = column + str(row)
 		i, j = self.GetIndexByPos(pos)
 		label = self.labels[i][j]
-		return label["text"]
+		return label
 
 	def OnClick(self, row, column):	
 		pos = column + str(row)
@@ -39,6 +39,8 @@ class Chess(object):
 				if row != 7:
 					step = (column, row - 1)
 					print(step)
+		if 1 == 2:
+			print(1 + 1)
 
 
 
@@ -122,7 +124,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("b2", "P", "B")
 	board.PlaceFigureOnBoard("c2", "P", "B")
 	board.PlaceFigureOnBoard("c3", "P", "B")#3
-	board.PlaceFigureOnBoard("b4", "P", "B")#3
+	board.PlaceFigureOnBoard("a4", "P", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
