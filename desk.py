@@ -10,7 +10,7 @@ class Chess(object):
 		self.desk, self.labels = self.MakeDesk()
 
 	def GetFigure(self, row, column):
-
+		pass
 
 	def OnClick(self, row, column):	
 		pos = column + str(row)
