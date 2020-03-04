@@ -3,14 +3,16 @@ import tkinter as tk
 class Chess(object):
 	def __init__(self):
 		self.IsClicked = False 
-		self.SCALE = 2
+		self.SCALE = 2 
 
-		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}
+		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7} 
 		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
 
-	def OnClick(self, row, column):
-		
+	def GetFigure(self, row, column):
+
+
+	def OnClick(self, row, column):	
 		pos = column + str(row)
 		i, j = self.GetIndexByPos(pos)
 		label = self.labels[i][j]
@@ -116,7 +118,8 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("a2", "P", "B")
 	board.PlaceFigureOnBoard("b2", "P", "B")
 	board.PlaceFigureOnBoard("c2", "P", "B")
-	board.PlaceFigureOnBoard("c3", "P", "B")#
+	board.PlaceFigureOnBoard("c3", "P", "B")#3
+	board.PlaceFigureOnBoard("b4", "P", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
