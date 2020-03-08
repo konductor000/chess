@@ -24,23 +24,23 @@ class Chess(object):
 		if label["text"] == "P":
 			if label["fg"] == "red":
 				step = [(column, row + 1), (column, row + 2)]
-				if self.GetLabel(step[0])["text"] != "":
-					step = []
-				elif row == 2:
-					if self.GetLabel(step[1])["text"] != "":
-						step.pop(1)
-				else:
-					step.pop(1)	
-				
-				
-						
+			if label["fg"] == "green":	
+				step = [(column, row - 1), (column, row - 2)]
+			if self.GetLabel(step[0])["text"] != "":
+				step = []
+			elif row == 2:
+				if self.GetLabel(step[1])["text"] != "":
+					step.pop(1)
+			elif row == 7:
+				if self.GetLabel(step[1])["text"] != "":
+					step.pop(1)
+			else:
+				step.pop(1)
+			#дописать ходы наискосок
+
+		#if label["text"] == "P":	
 		
-			if label["fg"] == "green":
-				if row == 7:
-					step = (column, row - 1, column, row - 2)
-					print(step)
-				if row != 7:
-					step = (column, row - 1)
+
 		print(step)
 
 
@@ -107,7 +107,9 @@ if __name__ == "__main__":
 
 	board.PlaceFigureOnBoard("a7", "P", "W")
 	board.PlaceFigureOnBoard("b7", "P", "W")
-	board.PlaceFigureOnBoard("c7", "P", "W")
+	board.PlaceFigureOnBoard("e6", "P", "W")
+	board.PlaceFigureOnBoard("f5", "P", "W")#
+	board.PlaceFigureOnBoard("c7", "P", "W")#
 	board.PlaceFigureOnBoard("d7", "P", "W")
 	board.PlaceFigureOnBoard("e7", "P", "W")
 	board.PlaceFigureOnBoard("f7", "P", "W")
