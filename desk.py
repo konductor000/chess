@@ -38,7 +38,24 @@ class Chess(object):
 				step.pop(1)
 			#дописать ходы наискосок
 
-			
+		if label["text"] == "R":
+			if label["fg"] == "red":
+				for i in range (8):
+					if int(row) + i == 8 or int(row) + i == 1:
+						break
+					step = [(column, row - i - 1)]
+					print(step)
+
+				for i in range (8):
+					if int(row) + i == 8 or int(row) + i == 1:
+						break
+					step = [(column, row + i)]
+					print(step)
+					step = [(column, row + i + 1)]
+					
+
+					
+
 		
 
 		print(step)
@@ -129,6 +146,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("c2", "P", "B")
 	board.PlaceFigureOnBoard("c3", "P", "B")#3
 	board.PlaceFigureOnBoard("a4", "P", "B")#3
+	board.PlaceFigureOnBoard("g4", "R", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
