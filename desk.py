@@ -38,7 +38,7 @@ class Chess(object):
 				step.pop(1)
 			#дописать ходы наискосок
 
-		#if label["text"] == "P":	
+			
 		
 
 		print(step)
