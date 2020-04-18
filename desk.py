@@ -52,6 +52,11 @@ class Chess(object):
 					step = [(column, row + i)]
 					print(step)
 					step = [(column, row + i + 1)]
+		x = ord("A")
+		print(x)
+
+		y = chr(x + 1)
+		print(y)
 					
 
 					
@@ -78,8 +83,8 @@ class Chess(object):
 			label.pack(side = tk.BOTTOM)
 		frame_let = tk.Frame(desk)
 		frame_let.pack(side = tk.BOTTOM, anchor = tk.SE)
-		letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
-		for i in letters:
+		self.letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
+		for i in self.letters:
 			label = tk.Label(frame_let, text = i, bg = "red", width = self.SCALE * 2, height = self.SCALE)
 			label.pack(side = tk.LEFT)
 		chess_frame = tk.Frame(desk)
@@ -94,7 +99,7 @@ class Chess(object):
 					col = "white"
 				label = tk.Label(chess_frame, bg = col, width = self.SCALE * 2, height = self.SCALE)
 				label.grid(row = i, column = j)
-				label.bind("<Button-1>", lambda event, row = 8 - i, column = letters[j]: self.OnClick(row, column))
+				label.bind("<Button-1>", lambda event, row = 8 - i, column = self.letters[j]: self.OnClick(row, column))
 				labels[i].append(label)
 				#label["text"] = "a"
 
