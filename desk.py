@@ -41,31 +41,36 @@ class Chess(object):
 		if label["text"] == "R":
 			if label["fg"] == "red":
 				for i in range (8):
-					if int(row) + i == 8 or int(row) + i == 1:
+					if int(row) + i == 8 or int(row) - i == 1:
 						break
 					step = [(column, row - i - 1)]
-					print(step)
-
+					if step != [(column, row)]:
+						print(step)
 				for i in range (8):
 					if int(row) + i == 8 or int(row) + i == 1:
 						break
 					step = [(column, row + i)]
-					print(step)
+					if step != [(column, row)]:
+						print(step)
 					step = [(column, row + i + 1)]
-		x = ord("A")
-		print(x)
-
-		y = chr(x + 1)
-		print(y)
+				if step != [(column, row)]:			
+					print(step)
+			
+				for i in range(8):
 					
-
-					
-
-		
-
-		print(step)
-
-
+					step = [(chr(ord(column) - i - 1), row)]
+					if step != [(column, row)]:
+						print(step)
+				for i in range(8):
+					if int(ord(column)) + i == 72 or int(ord(column)) + i == 65:
+						break
+					step = [(chr(ord(column) + i), row)]
+					if step != [(column, row)]:
+						print(step)
+					step = [(chr(ord(column) + i + 1), row)]
+		if step != [(column, row)]:			
+			print(step)
+			
 
 
 
@@ -113,16 +118,8 @@ class Chess(object):
 		label["text"] = figure
 		label["fg"] = "green" if color == "W" else "red"
 
-
-
-	
-
-
-
 	def Run(self):
 		self.desk.mainloop()
-		print(1)
-
 
 if __name__ == "__main__":
 	board = Chess()
@@ -166,7 +163,4 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("g1", "H", "B")
 	board.PlaceFigureOnBoard("f1", "E", "B")
 
-
-	board.Run()
-	
-	
+	board.Run()	
