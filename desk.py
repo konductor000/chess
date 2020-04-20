@@ -57,20 +57,62 @@ class Chess(object):
 					print(step)
 			
 				for i in range(8):
-					
+					if chr(ord(column) - i) == "A":
+						break
 					step = [(chr(ord(column) - i - 1), row)]
 					if step != [(column, row)]:
 						print(step)
 				for i in range(8):
-					if int(ord(column)) + i == 72 or int(ord(column)) + i == 65:
+					if chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
 						break
 					step = [(chr(ord(column) + i), row)]
 					if step != [(column, row)]:
 						print(step)
 					step = [(chr(ord(column) + i + 1), row)]
-		if step != [(column, row)]:			
-			print(step)
+				if step != [(column, row)]:			
+					print(step)
+
+		if label["fg"] == "green":
+				for i in range (8):
+					if int(row) + i == 8 or int(row) - i == 1:
+						break
+					step = [(column, row - i - 1)]
+					if step != [(column, row)]:
+						print(step)
+				for i in range (8):
+					if int(row) + i == 8 or int(row) + i == 1:
+						break
+					step = [(column, row + i)]
+					if step != [(column, row)]:
+						print(step)
+					step = [(column, row + i + 1)]
+					if step != [(column, row)]:			
+						print(step)
 			
+				for i in range(8):
+					if chr(ord(column) - i) == "A":
+						break
+					step = [(chr(ord(column) - i - 1), row)]
+					if step != [(column, row)]:
+						print(step)
+				for i in range(8):
+					if chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
+						break
+					step = [(chr(ord(column) + i), row)]
+					if step != [(column, row)]:
+						print(step)
+					step = [(chr(ord(column) + i + 1), row)]
+					if step != [(column, row)]:			
+						print(step)	
+
+		if label["text"] == "E":
+			if label["fg"] == "red": 
+				for i in range(10):
+					if int(row) + i == 8 or int(row) + i == 1 or int(row) + i == 1 or chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
+						break
+					step = [(row + i)]
+					print(step) 
+
 
 
 
@@ -149,6 +191,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("c3", "P", "B")#3
 	board.PlaceFigureOnBoard("a4", "P", "B")#3
 	board.PlaceFigureOnBoard("g4", "R", "B")#3
+	board.PlaceFigureOnBoard("g5", "R", "W")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
