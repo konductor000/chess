@@ -110,7 +110,7 @@ class Chess(object):
 				for i in range(10):
 					if int(row) + i == 8 or int(row) + i == 1 or int(row) + i == 1 or chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
 						break
-					step = [(row + i)]
+					step = [(chr(ord(column) + i), row + i)]
 					print(step) 
 
 
