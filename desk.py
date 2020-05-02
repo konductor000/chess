@@ -4,7 +4,7 @@ class Chess(object):
 	def __init__(self):
 		self.IsClicked = False 
 		self.SCALE = 2 
-
+		self.letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
 		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}        
 		# lables = list of lists (8, 8)
 		self.desk, self.labels = self.MakeDesk()
@@ -16,7 +16,19 @@ class Chess(object):
 		label = self.labels[i][j]
 		return label
 
-	def OnClick(self, row, column):	
+
+	def CanMove(self, step, label, posible_steps):
+		distinatination_label = self.GetLabel(step)
+		if distinatination_label["text"] != "": 
+			if distinatination_label["fg"] != label["fg"]:
+				posible_steps.append(step)
+			return False
+		posible_steps.append(step)
+		return True
+
+
+	def OnClick(self, row, column):
+		posible_steps = []	
 		pos = column + str(row)
 		i, j = self.GetIndexByPos(pos)
 		label = self.labels[i][j]
@@ -37,73 +49,28 @@ class Chess(object):
 			else:
 				step.pop(1)
 			#дописать ходы наискосок
+			posible_steps = step
 
 		if label["text"] == "R":
-			if label["fg"] == "red":
-				for i in range (8):
-					if int(row) + i == 8 or int(row) - i == 1:
-						break
-					step = [(column, row - i - 1)]
-					if step != [(column, row)]:
-						print(step)
-				for i in range (8):
-					if int(row) + i == 8 or int(row) + i == 1:
-						break
-					step = [(column, row + i)]
-					if step != [(column, row)]:
-						print(step)
-					step = [(column, row + i + 1)]
-				if step != [(column, row)]:			
-					print(step)
-			
-				for i in range(8):
-					if chr(ord(column) - i) == "A":
-						break
-					step = [(chr(ord(column) - i - 1), row)]
-					if step != [(column, row)]:
-						print(step)
-				for i in range(8):
-					if chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
-						break
-					step = [(chr(ord(column) + i), row)]
-					if step != [(column, row)]:
-						print(step)
-					step = [(chr(ord(column) + i + 1), row)]
-				if step != [(column, row)]:			
-					print(step)
+			for i in range (row - 1, 0, -1):
+				step = (column, i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
 
-		if label["fg"] == "green":
-				for i in range (8):
-					if int(row) + i == 8 or int(row) - i == 1:
-						break
-					step = [(column, row - i - 1)]
-					if step != [(column, row)]:
-						print(step)
-				for i in range (8):
-					if int(row) + i == 8 or int(row) + i == 1:
-						break
-					step = [(column, row + i)]
-					if step != [(column, row)]:
-						print(step)
-					step = [(column, row + i + 1)]
-					if step != [(column, row)]:			
-						print(step)
+			for i in range (row + 1, 9):
+				step = (column, i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
 			
-				for i in range(8):
-					if chr(ord(column) - i) == "A":
-						break
-					step = [(chr(ord(column) - i - 1), row)]
-					if step != [(column, row)]:
-						print(step)
-				for i in range(8):
-					if chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
-						break
-					step = [(chr(ord(column) + i), row)]
-					if step != [(column, row)]:
-						print(step)
-					step = [(chr(ord(column) + i + 1), row)]
-					if step != [(column, row)]:			
-						print(step)	
+			column_index = self.letter_to_index[column]
+			for i in reversed(self.letters[0: column_index:]):
+				step = (i, row)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
+			for i in self.letters[column_index + 1: 8]:
+				step = (i, row)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
 
 		if label["text"] == "E":
 			if label["fg"] == "red": 
@@ -111,7 +78,10 @@ class Chess(object):
 					if int(row) + i == 8 or int(row) + i == 1 or int(row) + i == 1 or chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
 						break
 					step = [(chr(ord(column) + i), row + i)]
-					print(step) 
+					print(step)
+
+
+		print(posible_steps)
 
 
 
@@ -130,7 +100,6 @@ class Chess(object):
 			label.pack(side = tk.BOTTOM)
 		frame_let = tk.Frame(desk)
 		frame_let.pack(side = tk.BOTTOM, anchor = tk.SE)
-		self.letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
 		for i in self.letters:
 			label = tk.Label(frame_let, text = i, bg = "red", width = self.SCALE * 2, height = self.SCALE)
 			label.pack(side = tk.LEFT)
