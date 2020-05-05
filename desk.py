@@ -75,12 +75,39 @@ class Chess(object):
 
 		if label["text"] == "E":
 			column_index = self.letter_to_index[column]
-			i = 0
-			while row + i < 8 and column_index - i > 1:
-				i += 1
-				step = (column_index - i, row + i)
-				print(step)
+			a = 1
+			b = 1
+			c = 1
+			d = 1
+			for i in range(row - 1, 0, -1):
+				a += 1 #вниз
+			for i in range (row + 1, 9):
+				b += 1 #вверх
+			for i in reversed(self.letters[0: column_index:]):
+				c += 1 #налево
+			for i in self.letters[column_index + 1: 8]:
+				d += 1 #направо
+			print(a, b, c, d)
+			for i in range(1, min(b, c)):
+				step = (self.letters[column_index - i], row + i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
+			for i in range(1, min(b, d)):
+				step = (self.letters[column_index + i], row + i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
+			for i in range(1, min(a, c)):
+				step = (self.letters[column_index - i], row - i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
+			for i in range(1, min(a, d)):
+				step = (self.letters[column_index + i], row - i)
+				if self.CanMove(step, label, posible_steps) == False:
+					break
+			
 
+
+			
 					
 
 		print(posible_steps)
