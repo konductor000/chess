@@ -48,6 +48,7 @@ class Chess(object):
 					step.pop(1)
 			else:
 				step.pop(1)
+
 			#дописать ходы наискосок
 			posible_steps = step
 
@@ -73,13 +74,14 @@ class Chess(object):
 					break
 
 		if label["text"] == "E":
-			if label["fg"] == "red": 
-				for i in range(10):
-					if int(row) + i == 8 or int(row) + i == 1 or int(row) + i == 1 or chr(ord(column) + i) == "H" or chr(ord(column) - i) == "A":
-						break
-					step = [(chr(ord(column) + i), row + i)]
-					print(step)
+			column_index = self.letter_to_index[column]
+			i = 0
+			while row + i < 8 and column_index - i > 1:
+				i += 1
+				step = (column_index - i, row + i)
+				print(step)
 
+					
 
 		print(posible_steps)
 
@@ -161,6 +163,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("a4", "P", "B")#3
 	board.PlaceFigureOnBoard("g4", "R", "B")#3
 	board.PlaceFigureOnBoard("g5", "R", "W")#3
+	board.PlaceFigureOnBoard("b4", "E", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
