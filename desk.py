@@ -23,8 +23,12 @@ class Chess(object):
 			if distinatination_label["fg"] != label["fg"]:
 				posible_steps.append(step)
 			return False
+
+		
+
 		posible_steps.append(step)
 		return True
+
 
 
 	def OnClick(self, row, column):
@@ -103,11 +107,25 @@ class Chess(object):
 				step = (self.letters[column_index + i], row - i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
-			
-
-
-			
-					
+	
+		if label["text"] == "H":
+			column_index = self.letter_to_index[column]
+			step = (row - 1, self.letters[column_index - 2])
+			print(step)
+			step = (row + 1, self.letters[column_index - 2])	
+			print(step)
+			step = (row + 2, self.letters[column_index - 1])
+			print(step)
+			step = (row + 2, self.letters[column_index + 1])
+			print(step)
+			step = (row + 1, self.letters[column_index + 2])
+			print(step)
+			step = (row - 1, self.letters[column_index + 2])
+			print(step)
+			step = (row - 2, self.letters[column_index + 1])
+			print(step)
+			step = (row - 2, self.letters[column_index - 1])
+			print(step)
 
 		print(posible_steps)
 
