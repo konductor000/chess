@@ -52,7 +52,7 @@ class Chess(object):
 			#дописать ходы наискосок
 			posible_steps = step
 
-		if label["text"] == "R":
+		if label["text"] == "R" or label["text"] == "Q":
 			for i in range (row - 1, 0, -1):
 				step = (column, i)
 				if self.CanMove(step, label, posible_steps) == False:
@@ -73,34 +73,33 @@ class Chess(object):
 				if self.CanMove(step, label, posible_steps) == False:
 					break
 
-		if label["text"] == "E":
+		if label["text"] == "E" or label["text"] == "Q":
 			column_index = self.letter_to_index[column]
-			a = 1
-			b = 1
-			c = 1
-			d = 1
+			down = 1
+			up = 1
+			left = 1
+			right = 1
 			for i in range(row - 1, 0, -1):
-				a += 1 #вниз
+				down += 1 
 			for i in range (row + 1, 9):
-				b += 1 #вверх
+				up += 1 
 			for i in reversed(self.letters[0: column_index:]):
-				c += 1 #налево
+				left += 1
 			for i in self.letters[column_index + 1: 8]:
-				d += 1 #направо
-			print(a, b, c, d)
-			for i in range(1, min(b, c)):
+				right += 1
+			for i in range(1, min(up, left)):
 				step = (self.letters[column_index - i], row + i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
-			for i in range(1, min(b, d)):
+			for i in range(1, min(up, right)):
 				step = (self.letters[column_index + i], row + i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
-			for i in range(1, min(a, c)):
+			for i in range(1, min(down, left)):
 				step = (self.letters[column_index - i], row - i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
-			for i in range(1, min(a, d)):
+			for i in range(1, min(down, right)):
 				step = (self.letters[column_index + i], row - i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
@@ -191,6 +190,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("g4", "R", "B")#3
 	board.PlaceFigureOnBoard("g5", "R", "W")#3
 	board.PlaceFigureOnBoard("b4", "E", "B")#3
+	board.PlaceFigureOnBoard("d5", "Q", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
