@@ -77,6 +77,7 @@ class Chess(object):
 				if self.CanMove(step, label, posible_steps) == False:
 					break
 
+
 		if label["text"] == "E" or label["text"] == "Q":
 			column_index = self.letter_to_index[column]
 			down = 1
@@ -111,21 +112,21 @@ class Chess(object):
 		if label["text"] == "H":
 			column_index = self.letter_to_index[column]
 			step = (row - 1, self.letters[column_index - 2])
-			print(step)
+			
 			step = (row + 1, self.letters[column_index - 2])	
-			print(step)
+			
 			step = (row + 2, self.letters[column_index - 1])
-			print(step)
+			
 			step = (row + 2, self.letters[column_index + 1])
-			print(step)
+			
 			step = (row + 1, self.letters[column_index + 2])
-			print(step)
+			
 			step = (row - 1, self.letters[column_index + 2])
-			print(step)
+			
 			step = (row - 2, self.letters[column_index + 1])
-			print(step)
+			
 			step = (row - 2, self.letters[column_index - 1])
-			print(step)
+			
 
 		print(posible_steps)
 
