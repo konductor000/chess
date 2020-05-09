@@ -23,9 +23,7 @@ class Chess(object):
 			if distinatination_label["fg"] != label["fg"]:
 				posible_steps.append(step)
 			return False
-		if step[0] > 8 or step[1] > 7:
-			return False
-		
+
 
 		
 
@@ -111,41 +109,43 @@ class Chess(object):
 				step = (self.letters[column_index + i], row - i)
 				if self.CanMove(step, label, posible_steps) == False:
 					break
-	
+			
 		if label["text"] == "H":
 			column_index = self.letter_to_index[column]
-			step = [(row - 1, self.letters[column_index - 2])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
+			for step in [
+			(column_index - 2, row - 1),
+			(column_index - 2, row + 1),
+			(column_index - 1, row + 2),
+			(column_index + 1, row + 2),
+			(column_index + 2, row + 1),
+			(column_index + 2, row - 1),
+			(column_index + 1, row - 2),
+			(column_index - 1, row - 2)
+			]:
+				if 0 < step[1] <= 8 and 0 <= step[0] <= 7:
+					step = (self.letters[step[0]], step[1])
+					
+					
+					self.CanMove(step, label, posible_steps)
 
-			step = [(row + 1, self.letters[column_index - 2])]	
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row + 2, self.letters[column_index - 1])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row + 2, self.letters[column_index + 1])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row + 1, self.letters[column_index + 2])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row - 1, self.letters[column_index + 2])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row - 2, self.letters[column_index + 1])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
-			step = [(row - 2, self.letters[column_index - 1])]
-			if self.CanMove(step, label, posible_steps) == False:
-				break
-
+		if label["text"] == "K":
+			column_index = self.letter_to_index[column]
+			for step in [
+			(column_index - 2, row - 1),
+			(column_index - 2, row + 1),
+			(column_index - 1, row + 2),
+			(column_index + 1, row + 2),
+			(column_index + 2, row + 1),
+			(column_index + 2, row - 1),
+			(column_index + 1, row - 2),
+			(column_index - 1, row - 2)
+			]:
+				if 0 < step[1] <= 8 and 0 <= step[0] <= 7:
+					step = (self.letters[step[0]], step[1])
+					
+					
+					self.CanMove(step, label, posible_steps)
+		
 
 		print(posible_steps)
 
