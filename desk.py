@@ -39,10 +39,17 @@ class Chess(object):
 		label = self.labels[i][j]
 		#inf = (row, column, label["text"], label["fg"])
 		if label["text"] == "P":
+			column_index = self.letter_to_index[column]
 			if label["fg"] == "red":
+				kill_step_r = (chr(ord(column) + 1), row + 1)
+				kill_step_l = (chr(ord(column) - 1), row + 1)
 				step = [(column, row + 1), (column, row + 2)]
 			if label["fg"] == "green":	
+				kill_step_r = (chr(ord(column) + 1), row - 1)
+				kill_step_l = (chr(ord(column) - 1), row - 1)
 				step = [(column, row - 1), (column, row - 2)]
+			if self.GetLabel(kill_step_r)["text"] == "" or self.GetLabel(kill_step_r)["fg"] == label["fg"]:
+				step = [] 
 			if self.GetLabel(step[0])["text"] != "":
 				step = []
 			elif row == 2:
@@ -53,6 +60,7 @@ class Chess(object):
 					step.pop(1)
 			else:
 				step.pop(1)
+
 
 			#дописать ходы наискосок
 			posible_steps = step
@@ -131,14 +139,14 @@ class Chess(object):
 		if label["text"] == "K":
 			column_index = self.letter_to_index[column]
 			for step in [
-			(column_index - 2, row - 1),
-			(column_index - 2, row + 1),
-			(column_index - 1, row + 2),
-			(column_index + 1, row + 2),
-			(column_index + 2, row + 1),
-			(column_index + 2, row - 1),
-			(column_index + 1, row - 2),
-			(column_index - 1, row - 2)
+			(column_index - 1, row + 1),
+			(column_index, row + 1),
+			(column_index + 1, row + 1),
+			(column_index - 1, row),
+			(column_index - 1, row - 1),
+			(column_index, row - 1),
+			(column_index + 1, row - 1),
+			(column_index + 1, row)
 			]:
 				if 0 < step[1] <= 8 and 0 <= step[0] <= 7:
 					step = (self.letters[step[0]], step[1])
@@ -229,6 +237,7 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("g5", "R", "W")#3
 	board.PlaceFigureOnBoard("b4", "E", "B")#3
 	board.PlaceFigureOnBoard("d5", "Q", "B")#3
+	board.PlaceFigureOnBoard("e4", "K", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
