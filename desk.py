@@ -3,6 +3,7 @@ import tkinter as tk
 class Chess(object):
 	def __init__(self):
 		self.IsClicked = False 
+		self.WhoMoves = "red"
 		self.SCALE = 2 
 		self.letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
 		self.letter_to_index = {"A":0, "B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7}        
@@ -26,13 +27,20 @@ class Chess(object):
 
 
 		
-
 		posible_steps.append(step)
 		return True
 
 
+	def Move(self, new_pos, old_pos):
+		old_text = self.GetLabel(old_pos)["text"]
+		old_fg = self.GetLabel(old_pos)["fg"]
+		self.GetLabel(new_pos)["text"] = old_text
+		self.GetLabel(new_pos)["fg"] = old_fg
+		self.GetLabel(old_pos)["text"] = ""
+		self.WhoMoves = "red" if self.WhoMoves == "green" else "green"
 
-	def OnClick(self, row, column):
+
+	def PosibleSteps(self, row, column):
 		posible_steps = []	
 		pos = column + str(row)
 		i, j = self.GetIndexByPos(pos)
@@ -41,16 +49,16 @@ class Chess(object):
 		if label["text"] == "P":
 			column_index = self.letter_to_index[column]
 			if label["fg"] == "red":
-				kill_step_r = (chr(ord(column) + 1), row + 1)
-				kill_step_l = (chr(ord(column) - 1), row + 1)
+				kill_step_r = [(chr(ord(column) + 1), row + 1)]
+				kill_step_l = [(chr(ord(column) - 1), row + 1)]
 				step = [(column, row + 1), (column, row + 2)]
 			if label["fg"] == "green":	
-				kill_step_r = (chr(ord(column) + 1), row - 1)
-				kill_step_l = (chr(ord(column) - 1), row - 1)
+				kill_step_r = [(chr(ord(column) + 1), row - 1)]
+				kill_step_l = [(chr(ord(column) - 1), row - 1)]
 				step = [(column, row - 1), (column, row - 2)]
-			if self.GetLabel(kill_step_r)["text"] == "" or self.GetLabel(kill_step_r)["fg"] == label["fg"]:
+			if kill_step_r[0][0] in {chr(ord("A") - 1), "I"} or self.GetLabel(kill_step_r[0])["text"] == "" or self.GetLabel(kill_step_r[0])["fg"] == label["fg"]:
 				kill_step_r = [] 
-			if self.GetLabel(kill_step_l)["text"] == "" or self.GetLabel(kill_step_r)["fg"] == label["fg"]:
+			if kill_step_l[0][0] in {chr(ord("A") - 1), "I"} or self.GetLabel(kill_step_l[0])["text"] == "" or self.GetLabel(kill_step_l[0])["fg"] == label["fg"]:
 				kill_step_l = [] 
 			if self.GetLabel(step[0])["text"] != "":
 				step = []
@@ -65,7 +73,7 @@ class Chess(object):
 
 
 			#дописать ходы наискосок
-			posible_steps = step
+			posible_steps = step + kill_step_l + kill_step_r 
 
 		if label["text"] == "R" or label["text"] == "Q":
 			for i in range (row - 1, 0, -1):
@@ -155,9 +163,31 @@ class Chess(object):
 					
 					
 					self.CanMove(step, label, posible_steps)
-		
+		return posible_steps
 
-		print(posible_steps)
+	def OnClick(self, row, column):
+		new_pos = (column, row)
+		if self.IsClicked == False and self.GetLabel(new_pos)["fg"] == self.WhoMoves:
+			self.posible_steps = self.PosibleSteps(row, column)
+			self.old_pos = new_pos
+			for i in self.posible_steps:
+					self.GetLabel(i)["bg"] = "blue"
+			self.IsClicked = True
+		elif self.IsClicked == True:
+			if (new_pos) in self.posible_steps: 
+				self.Move(new_pos, self.old_pos)
+			else:
+				print("походите заново")
+			self.IsClicked = False
+			for i in range(8):
+				for j in range(8):
+					if (j + i) % 2 != 0:
+						col = "black"
+					else:
+						col = "white"
+					label = self.labels[i][j]
+					label["bg"] = col
+
 
 
 
@@ -213,9 +243,7 @@ if __name__ == "__main__":
 
 	board.PlaceFigureOnBoard("a7", "P", "W")
 	board.PlaceFigureOnBoard("b7", "P", "W")
-	board.PlaceFigureOnBoard("e6", "P", "W")
-	board.PlaceFigureOnBoard("f5", "P", "W")#
-	board.PlaceFigureOnBoard("c7", "P", "W")#
+	board.PlaceFigureOnBoard("c7", "P", "W")
 	board.PlaceFigureOnBoard("d7", "P", "W")
 	board.PlaceFigureOnBoard("e7", "P", "W")
 	board.PlaceFigureOnBoard("f7", "P", "W")
@@ -233,13 +261,6 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("a2", "P", "B")
 	board.PlaceFigureOnBoard("b2", "P", "B")
 	board.PlaceFigureOnBoard("c2", "P", "B")
-	board.PlaceFigureOnBoard("c3", "P", "B")#3
-	board.PlaceFigureOnBoard("a4", "P", "B")#3
-	board.PlaceFigureOnBoard("g4", "R", "B")#3
-	board.PlaceFigureOnBoard("g5", "R", "W")#3
-	board.PlaceFigureOnBoard("b4", "E", "B")#3
-	board.PlaceFigureOnBoard("d5", "Q", "B")#3
-	board.PlaceFigureOnBoard("e4", "K", "B")#3
 	board.PlaceFigureOnBoard("d2", "P", "B")
 	board.PlaceFigureOnBoard("e2", "P", "B")
 	board.PlaceFigureOnBoard("f2", "P", "B")
