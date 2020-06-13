@@ -49,7 +49,9 @@ class Chess(object):
 				kill_step_l = (chr(ord(column) - 1), row - 1)
 				step = [(column, row - 1), (column, row - 2)]
 			if self.GetLabel(kill_step_r)["text"] == "" or self.GetLabel(kill_step_r)["fg"] == label["fg"]:
-				step = [] 
+				kill_step_r = [] 
+			if self.GetLabel(kill_step_l)["text"] == "" or self.GetLabel(kill_step_r)["fg"] == label["fg"]:
+				kill_step_l = [] 
 			if self.GetLabel(step[0])["text"] != "":
 				step = []
 			elif row == 2:
