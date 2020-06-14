@@ -17,7 +17,6 @@ class Chess(object):
 		label = self.labels[i][j]
 		return label
 
-
 	def CanMove(self, step, label, posible_steps):
 		distinatination_label = self.GetLabel(step)
 		if distinatination_label["text"] != "": 
@@ -30,15 +29,24 @@ class Chess(object):
 		posible_steps.append(step)
 		return True
 
-
 	def Move(self, new_pos, old_pos):
 		old_text = self.GetLabel(old_pos)["text"]
 		old_fg = self.GetLabel(old_pos)["fg"]
+		new_text = self.GetLabel(new_pos)["text"]
+		new_fg = self.GetLabel(new_pos)["fg"]
 		self.GetLabel(new_pos)["text"] = old_text
 		self.GetLabel(new_pos)["fg"] = old_fg
 		self.GetLabel(old_pos)["text"] = ""
 		self.WhoMoves = "red" if self.WhoMoves == "green" else "green"
+		self.last_move1 = (old_pos, old_text, old_fg)
+		self.last_move2 = (new_pos, new_text, new_fg)
 
+	def UnMove(self):
+		self.GetLabel(self.last_move1[0])["text"] = self.last_move1[1]
+		self.GetLabel(self.last_move1[0])["fg"] = self.last_move1[2]
+		self.GetLabel(self.last_move2[0])["text"] = self.last_move2[1]
+		self.GetLabel(self.last_move2[0])["fg"] = self.last_move2[2]
+		self.WhoMoves = "red" if self.WhoMoves == "green" else "green"
 
 	def PosibleSteps(self, row, column):
 		posible_steps = []	
@@ -168,7 +176,26 @@ class Chess(object):
 	def OnClick(self, row, column):
 		new_pos = (column, row)
 		if self.IsClicked == False and self.GetLabel(new_pos)["fg"] == self.WhoMoves:
-			self.posible_steps = self.PosibleSteps(row, column)
+			self.posible_steps = []
+			posible_steps_without_cheks = self.PosibleSteps(row, column)
+			print('posible_steps_without_cheks', posible_steps_without_cheks)
+			for i in posible_steps_without_cheks:
+				pos = (column, row)
+				self.Move(i, pos)
+				all_posible_step = []
+				for j in ("A", "B", "C", "D", "E", "F", "G", "H"):
+					for x in range(1, 9):
+						if self.GetLabel((j, x))["fg"] != self.WhoMoves and self.GetLabel((j, x))["text"] == "K":
+							kings_pos = (j, x)
+						if self.GetLabel((j, x))["fg"] == self.WhoMoves:
+							posible_steps = self.PosibleSteps(x, j)
+							all_posible_step += posible_steps
+							if ("E", 8) in posible_steps:
+								print(j, x)
+								print(self.GetLabel((j, x))["text"])
+				if kings_pos not in all_posible_step:
+					self.posible_steps.append(i)
+				self.UnMove()
 			self.old_pos = new_pos
 			for i in self.posible_steps:
 					self.GetLabel(i)["bg"] = "blue"
@@ -187,10 +214,6 @@ class Chess(object):
 						col = "white"
 					label = self.labels[i][j]
 					label["bg"] = col
-
-
-
-
 
 	def GetIndexByPos(self, pos):
 		i = 8 - int(pos[1])
@@ -275,4 +298,5 @@ if __name__ == "__main__":
 	board.PlaceFigureOnBoard("g1", "H", "B")
 	board.PlaceFigureOnBoard("f1", "E", "B")
 
-	board.Run()	
+		
+	board.Run()
