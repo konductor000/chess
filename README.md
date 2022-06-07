@@ -31,4 +31,4 @@ The Tkinter library was used to display the board.
 
 ---
 
-![Project Image](https://github.com/konductor000/chess/blob/main/images/pic1.PNG)
+![Project Image](https://github.com/konductor000/chess/blob/master/images/pic1.PNG)
