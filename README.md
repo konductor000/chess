@@ -1,34 +1,16 @@
-# Chess
+## Chess Game
 
----
+This project is an implementation of the classic game of chess using the Python programming language and the Tkinter library for the user interface. The game follows all of the standard chess rules and prohibits any illegal moves.  
+### Getting Started
 
-## Description
+To run the game, please clone this repository and run the `desk.py` file. The **Tkinter** library is required to run the game, so make sure it is installed on your machine before running the game.
 
-Chess game written on Python.
-You can only move where you can move according to the rules of chess,
-the possible moves are highlighted.
+### Features
 
-### Technologies
+- Standard chess rules are followed
+- Illegal moves are prohibited
+- User-friendly interface using Tkinter
 
-- Python 3.8
-- Tkinter
-
----
-
-## Installation
-
-
-```html
-git clone https://github.com/konductor000/chess.git
-```
-### How does it work
-
-
-The program counts all possible moves for each piece,
-for the king, the possible moves of enemy pieces are also taken into account.
-
-The Tkinter library was used to display the board.
-
----
+### Screenshots
 
 ![Project Image](https://github.com/konductor000/chess/blob/master/images/pic1.PNG)
